@@ -56,7 +56,7 @@ bool LPS35HW::begin(TwoWire *theWire) {
 
 bool LPS35HW::init() {
     if (readRegister(LPS35HW_WHO_AM_I) == LPS35HW_ID) {
-        writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b10000100);  // Reset and reboot
+        writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b11000100);  // Reset and reboot
         writeRegister(LPS35HW_CTRL_REG1, _config);
         return true;
     }
@@ -107,12 +107,10 @@ float LPS35HW::readPressure() {
     int32_t value = readRegister(LPS35HW_PRESS_OUT_XL);
     value |= (static_cast<int32_t>(readRegister(LPS35HW_PRESS_OUT_L)) << 8);
     value |= static_cast<int32_t>(readRegister(LPS35HW_PRESS_OUT_H)) << 16;  // Important to read as last for BDU to work
-
     if (value != 0xFFFFFF) {
         if (value & 0x800000) {
             value = (0xFF000000 | value);
         }
-
         return static_cast<float>(value) / 4096.0;
     }
 

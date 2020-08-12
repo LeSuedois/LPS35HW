@@ -29,23 +29,24 @@ SOFTWARE.
 
 #include <Wire.h>
 
-#define LPS35HW_ADDRESS 0x5C
-#define LPS35HW_DEFAULT_CTRL_REG1 0b00100010  // continuous@10Hz, no low pass filter, BDU on
-#define LPS35HW_DEFAULT_CTRL_REG2 0b00010000
-#define LPS35HW_ID 0b10110001  // same as LPS22HB, LPS33W, LPS33HW
-#define LPS35HW_DEFAULT_INTERRUPT 0b00000000
+#define LPS35HW_ADDRESS             0x5C
+#define LPS35HW_DEFAULT_CTRL_REG1   0b00100010  // continuous@10Hz, no low pass filter, BDU on
+#define LPS35HW_DEFAULT_CTRL_REG2   0b00010000
+#define LPS35HW_ID                  0b10110001  // same as LPS22HB, LPS33W, LPS33HW
+#define LPS35HW_DEFAULT_INTERRUPT   0b00000000
 class LPS35HW {
   public:
     enum InterruptReg {
-        AUTORIFP    = 0b10000000,  // AUTORIFP: Enable AutoRifP function. Default value: 0
-        RESETARP    = 0b01000000,  // Reset AutoRifP function. Default value: 0
-        setAutoZero = 0b00100000,  // Enable Autozero. Default value: 0
-        RESET_AZ    = 0b00010000,  // Reset Autozero function. Default value: 0
-        DIFF_EN     = 0b00001000,  // Enable interrupt generation. Default value: 0
-        LIR         = 0b00000100,  // Latch interrupt request to the INT_SOURCE register. Default value: 0
-        PLE         = 0b00000010,  // Enable interrupt generation on differential pressure low event. Default value: 0 
-        PHE         = 0b00000001   // Enable interrupt generation on differential pressure high event. Default value: 0
+        AutoRifP                = 0b10000000,  // AUTORIFP: Enable AutoRifP function. Default value: 0
+        ResetARP                = 0b01000000,  // Reset AutoRifP function. Default value: 0
+        SetAutoZero             = 0b00100000,  // Enable Autozero. Default value: 0
+        ResetAZ                 = 0b00010000,  // Reset Autozero function. Default value: 0
+        DiffEn                  = 0b00001000,  // Enable interrupt generation. Default value: 0
+        LatchInterruptRequest   = 0b00000100,  // Latch interrupt request to the INT_SOURCE register. Default value: 0
+        PLE                     = 0b00000010,  // Enable interrupt generation on differential pressure low event. Default value: 0 
+        PHE                     = 0b00000001   // Enable interrupt generation on differential pressure high event. Default value: 0
     };
+
     enum OutputRate {
         OutputRate_OneShot = 0b000,
         OutputRate_1Hz     = 0b001,
